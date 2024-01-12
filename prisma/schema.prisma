@@ -11,16 +11,20 @@ datasource db {
 }
 
 model Blog {
-  id        String @id @default(cuid())
+  id        String   @id @default(cuid())
+  title     String
   text      String
-  creator   User   @relation(fields: [creatorId], references: [id])
+  creator   User     @relation(fields: [creatorId], references: [id])
   creatorId String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model User {
-  id         String @id @default(cuid())
-  username   String @unique
-  password   String @db.VarChar()
-  Blogs Blog[]
+  id        String   @id @default(cuid())
+  username  String   @unique
+  password  String   @db.VarChar()
+  Blogs     Blog[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
-
